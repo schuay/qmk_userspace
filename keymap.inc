@@ -4,42 +4,42 @@
 #include "keymap_eurkey.h"
 
 enum layers {
-    BASE,
-    U_GAM,
-    U_GAM_FUN,
-    U_NUM,
-    U_NAV,
-    U_MOUSE,
-    U_SYM,
-    U_FUN,
-    U_BUTTON,
+  BASE,
+  U_GAM,
+  U_GAM_FUN,
+  U_NUM,
+  U_NAV,
+  U_MOUSE,
+  U_SYM,
+  U_FUN,
+  U_BUTTON,
 };
 
 enum custom_keycodes {
-    ___      = KC_TRNS,
-    HRM_A    = LGUI_T(KC_A),
-    HRM_R    = LALT_T(KC_R),
-    HRM_S    = LCTL_T(KC_S),
-    HRM_T    = LSFT_T(KC_T),
-    HRM_N    = LSFT_T(KC_N),
-    HRM_E    = LCTL_T(KC_E),
-    HRM_I    = LALT_T(KC_I),
-    HRM_O    = LGUI_T(KC_O),
-    BTN_ESC  = LT(U_BUTTON, KC_ESC),
-    NAV_SPC  = LT(U_NAV, KC_SPC),
-    FOO_TAB  = LT(U_NAV, KC_TAB),
-    NUM_DEL  = LT(U_NUM, KC_DEL),
-    FUN_ENT  = LT(U_FUN, KC_ENT),
-    SYM_BSP  = LT(U_SYM, KC_BSPC),
-    WSP_L    = G(KC_PGUP),
-    WSP_R    = G(KC_PGDN),
-    TAB_L    = C(KC_PGUP),
-    TAB_R    = C(KC_PGDN),
-    VIM_TABL = SAFE_RANGE,
-    VIM_TABR,
-    VIM_SPLITNEXT,
-    VIM_TABF,
-    VIM_SAVE,
+  ___      = KC_TRNS,
+  HRM_A    = LGUI_T(KC_A),
+  HRM_R    = LALT_T(KC_R),
+  HRM_S    = LCTL_T(KC_S),
+  HRM_T    = LSFT_T(KC_T),
+  HRM_N    = LSFT_T(KC_N),
+  HRM_E    = LCTL_T(KC_E),
+  HRM_I    = LALT_T(KC_I),
+  HRM_O    = LGUI_T(KC_O),
+  BTN_ESC  = LT(U_BUTTON, KC_ESC),
+  NAV_SPC  = LT(U_NAV, KC_SPC),
+  SPC_TAB  = LSFT_T(KC_TAB),
+  NUM_DEL  = LT(U_NUM, KC_DEL),
+  FUN_ENT  = LT(U_FUN, KC_ENT),
+  SYM_BSP  = LT(U_SYM, KC_BSPC),
+  WSP_L    = G(KC_PGUP),
+  WSP_R    = G(KC_PGDN),
+  TAB_L    = C(KC_PGUP),
+  TAB_R    = C(KC_PGDN),
+  VIM_TABL = SAFE_RANGE,
+  VIM_TABR,
+  VIM_SPLITNEXT,
+  VIM_TABF,
+  VIM_SAVE,
 };
 
 // clang-format off
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,
             KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  BTN_ESC,
                                                           QK_ALT_REPEAT_KEY,
-                                                    NAV_SPC,  FOO_TAB,  XXX,
+                                                    NAV_SPC,  SPC_TAB,  XXX,
 
         DF(U_GAM),KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     XXX,
         XXX,      KC_J,     KC_L,     KC_U,     KC_Y,     KC_SCLN,  KC_BSPC,
@@ -169,13 +169,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
             A(KC_TAB),C(KC_A),  C(KC_W),  A(KC_TAB),C(KC_T),  XXX,      XXX,
             XXX,      WSP_L,    TAB_L,    TAB_R,    WSP_R,    KC_ENT,   XXX,
-            XXX,      XXX,      C(KC_X),  C(KC_C),  XXX,      C(KC_V),
+            XXX,      C(KC_Z),  C(KC_X),  C(KC_C),  XXX,      C(KC_V),
             XXX,      XXX,      XXX,      XXX,      XXX,
                                                                         XXX,
                                                     XXX,      XXX,      XXX,
 
         XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
-        XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
+        XXX,      XXX,      XXX,      XXX,      XXX,      KC_SYRQ,  XXX,
         XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
                   XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
                             KC_DEL,   XXX,      XXX,      XXX,      XXX,
@@ -219,112 +219,152 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-            case VIM_SPLITNEXT:
-                SEND_STRING(SS_LCTL("w") SS_LCTL("w"));
-                return false;
-            case VIM_TABL:
-                SEND_STRING("gT");
-                return false;
-            case VIM_TABR:
-                SEND_STRING("gt");
-                return false;
-            case VIM_TABF:
-                SEND_STRING(":tabf ");
-                return false;
-            case VIM_SAVE:
-                SEND_STRING(":w" SS_TAP(X_ENT));
-                return false;
-        }
+  if (record->event.pressed) {
+    switch (keycode) {
+      case VIM_SPLITNEXT:
+        SEND_STRING(SS_LCTL("w") SS_LCTL("w"));
+        return false;
+      case VIM_TABL:
+        SEND_STRING("gT");
+        return false;
+      case VIM_TABR:
+        SEND_STRING("gt");
+        return false;
+      case VIM_TABF:
+        SEND_STRING(":tabf ");
+        return false;
+      case VIM_SAVE:
+        SEND_STRING(":w" SS_TAP(X_ENT));
+        return false;
     }
-    return true;
+  }
+  return true;
 }
 
 const custom_shift_key_t custom_shift_keys[] = {
     {KC_UNDS, KC_MINUS},
 };
 
-bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record, uint16_t other_keycode, keyrecord_t* other_record) {
-    // Exceptionally allow some one-handed chords for hotkeys.
-    switch (tap_hold_keycode) {
-        case BTN_ESC:
-        case NAV_SPC:
-        case FOO_TAB:
-        case NUM_DEL:
-        case SYM_BSP:
-        case FUN_ENT:
-            return true;
+const uint16_t PROGMEM combo_caps_word[] = {BTN_ESC, NUM_DEL, COMBO_END};
+combo_t                key_combos[]      = {
+    COMBO(combo_caps_word, QK_CAPS_WORD_TOGGLE),
+};
 
-        case LALT_T(KC_R):
-            if (other_keycode == KC_TAB) {
-                return true;
-            }
-            break;
-    }
-    // Otherwise defer to the opposite hands rule.
-    return get_chordal_hold_default(tap_hold_record, other_record);
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
+                      uint16_t other_keycode, keyrecord_t* other_record) {
+  // Exceptionally allow some one-handed chords for hotkeys.
+  switch (tap_hold_keycode) {
+    case BTN_ESC:
+    case NAV_SPC:
+    case SPC_TAB:
+    case NUM_DEL:
+    case SYM_BSP:
+    case FUN_ENT:
+      return true;
+
+    // Alt:
+    case HRM_R:
+      if (other_keycode == KC_TAB) {
+        return true;
+      }
+      // Fallthrough.
+
+    // Other left handed HRMs:
+    case HRM_A:
+    case HRM_S:
+    case HRM_T:
+      switch (other_keycode) {
+        case KC_LEFT:
+        case KC_RIGHT:
+        case KC_UP:
+        case KC_DOWN:
+        case KC_PGDN:
+        case KC_PGUP:
+          return true;
+      }
+      break;
+  }
+  // Otherwise defer to the opposite hands rule.
+  return get_chordal_hold_default(tap_hold_record, other_record);
 }
 
 bool caps_word_press_user(uint16_t keycode) {
-    switch (keycode) {
-        // Keycodes that continue Caps Word, with shift applied.
-        case KC_A ... KC_Z:
-            add_weak_mods(MOD_BIT_LSHIFT); // Apply shift to the next key.
-            return true;
+  switch (keycode) {
+    // Keycodes that continue Caps Word, with shift applied.
+    case KC_A ... KC_Z:
+      add_weak_mods(MOD_BIT_LSHIFT); // Apply shift to the next key.
+      return true;
 
-        // Keycodes that continue Caps Word, without shifting.
-        case KC_1 ... KC_0:
-        case KC_BSPC:
-        case KC_DEL:
-        case KC_UNDS:
-        case KC_COLN:
-            return true;
+    // Keycodes that continue Caps Word, without shifting.
+    case KC_1 ... KC_0:
+    case KC_BSPC:
+    case KC_DEL:
+    case KC_UNDS:
+    case KC_COLN:
+      return true;
 
-        default:
-            return false; // Deactivate Caps Word.
-    }
+    default:
+      return false; // Deactivate Caps Word.
+  }
 }
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
-    if ((mods & MOD_MASK_CTRL)) { // Was Ctrl held?
-        switch (keycode) {
-            case KC_Y:
-                return C(KC_Z); // Ctrl + Y reverses to Ctrl + Z.
-            case KC_Z:
-                return C(KC_Y); // Ctrl + Z reverses to Ctrl + Y.
-            case KC_C:
-                return C(KC_V);
-            case KC_X:
-                return C(KC_V);
-        }
-    }
+  if ((mods & MOD_MASK_CTRL)) { // Was Ctrl held?
     switch (keycode) {
-        case KC_LPRN:
-            return C(KC_RPRN);
-        case KC_RPRN:
-            return C(KC_RPRN);
-        case VIM_TABL:
-            return VIM_TABR;
-        case VIM_TABR:
-            return VIM_TABL;
+      case KC_Y:
+        return C(KC_Z); // Ctrl + Y reverses to Ctrl + Z.
+      case KC_Z:
+        return C(KC_Y); // Ctrl + Z reverses to Ctrl + Y.
+      case KC_C:
+        return C(KC_V);
+      case KC_X:
+        return C(KC_V);
     }
+  }
+  switch (keycode) {
+    case KC_LPRN:
+      return C(KC_RPRN);
+    case KC_RPRN:
+      return C(KC_RPRN);
+    case VIM_TABL:
+      return VIM_TABR;
+    case VIM_TABR:
+      return VIM_TABL;
+  }
 
-    return KC_TRNS; // Defer to default definitions.
+  return KC_TRNS; // Defer to default definitions.
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
+  switch (keycode) {
+    case HRM_T:
+    case HRM_N:
+      // Shorter tapping term for index fingers / shift.
+      return TAPPING_TERM - 75;
+    default:
+      return TAPPING_TERM;
+  }
 }
 
 bool is_flow_tap_key(uint16_t keycode) {
-    if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
-        return false; // Disable Flow Tap on hotkeys.
-    }
-    switch (get_tap_keycode(keycode)) {
-        // case KC_SPC:
-        case KC_A ... KC_Z:
-        case KC_DOT:
-        case KC_COMM:
-        case KC_SCLN:
-        case KC_UNDS:
-            return true;
-    }
-    return false;
+  if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
+    return false; // Disable Flow Tap on hotkeys.
+  }
+  switch (keycode) {
+    // Disable for the Shift homerow mods since those are part of standard
+    // typing, and on the strong and fast fingers.
+    case HRM_T:
+    case HRM_N:
+      return false;
+  }
+  switch (get_tap_keycode(keycode)) {
+    // case KC_SPC:
+    case KC_A ... KC_Z:
+    case KC_DOT:
+    case KC_COMM:
+    case KC_SCLN:
+    case KC_UNDS:
+      return true;
+  }
+  return false;
 }
