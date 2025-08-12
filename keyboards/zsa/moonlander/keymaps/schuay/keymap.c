@@ -1,6 +1,6 @@
 #define LAYOUT_LR LAYOUT_LR_MOONLANDER
 
-#include "keymap.inc"
+#include "global-keymap-inl.h"
 
 void keyboard_post_init_user(void) {
   // Set the effect.

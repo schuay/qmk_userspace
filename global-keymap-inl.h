@@ -8,6 +8,7 @@ enum layers {
   U_GAM,
   U_GAM_FUN,
   U_NUM,
+  U_NM2,
   U_NAV,
   U_MOUSE,
   U_SYM,
@@ -16,30 +17,34 @@ enum layers {
 };
 
 enum custom_keycodes {
-  ___      = KC_TRNS,
-  HRM_A    = LGUI_T(KC_A),
-  HRM_R    = LALT_T(KC_R),
-  HRM_S    = LCTL_T(KC_S),
-  HRM_T    = LSFT_T(KC_T),
-  HRM_N    = LSFT_T(KC_N),
-  HRM_E    = LCTL_T(KC_E),
-  HRM_I    = LALT_T(KC_I),
-  HRM_O    = LGUI_T(KC_O),
-  BTN_ESC  = LT(U_BUTTON, KC_ESC),
-  NAV_SPC  = LT(U_NAV, KC_SPC),
-  SPC_TAB  = LSFT_T(KC_TAB),
-  NUM_DEL  = LT(U_NUM, KC_DEL),
-  FUN_ENT  = LT(U_FUN, KC_ENT),
-  SYM_BSP  = LT(U_SYM, KC_BSPC),
-  WSP_L    = G(KC_PGUP),
-  WSP_R    = G(KC_PGDN),
-  TAB_L    = C(KC_PGUP),
-  TAB_R    = C(KC_PGDN),
-  VIM_TABL = SAFE_RANGE,
-  VIM_TABR,
-  VIM_SPLITNEXT,
-  VIM_TABF,
-  VIM_SAVE,
+  ___     = KC_TRNS,
+  HRM_A   = LGUI_T(KC_A),
+  HRM_R   = LALT_T(KC_R),
+  HRM_S   = LCTL_T(KC_S),
+  HRM_T   = LSFT_T(KC_T),
+  HRM_N   = LSFT_T(KC_N),
+  HRM_E   = LCTL_T(KC_E),
+  HRM_I   = LALT_T(KC_I),
+  HRM_O   = LGUI_T(KC_O),
+  BTN_ESC = LT(U_BUTTON, KC_ESC),
+  NAV_SPC = LT(U_NAV, KC_SPC),
+  NM2_TAB = LT(U_NM2, KC_TAB),
+  NUM_DEL = LT(U_NUM, KC_DEL),
+  FUN_ENT = LT(U_FUN, KC_ENT),
+  SYM_BSP = LT(U_SYM, KC_BSPC),
+  WSP_L   = G(KC_PGUP),
+  WSP_R   = G(KC_PGDN),
+  TAB_L   = C(KC_PGUP),
+  TAB_R   = C(KC_PGDN),
+  VTABL   = SAFE_RANGE,
+  VTABR,
+  VSPLITNEXT,
+  VTABF,
+  VSAVE,
+  VRELOAD,
+  RENC_CCW, // right encoder, counter clockwise.
+  RENC_CW,  // right encoder, clockwise.
+  ENC_CLR,  // clear encoder state.
 };
 
 // clang-format off
@@ -74,48 +79,60 @@ enum custom_keycodes {
     { KC_NO, KC_NO, KC_NO, kb3, kb4, kb5, kb6 }            \
 }
 
-// TODO:
-// * Remove repeat keys?
-// * Shift on third left thumbkey?
-// * 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_LR(
-            XXX,      KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     XXX,
+            XXX,      KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     QK_LLCK,
             KC_TAB,   KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,     XXX,
             XXX,      HRM_A,    HRM_R,    HRM_S,    HRM_T,    KC_G,     XXX,
             KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,
             KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  BTN_ESC,
                                                           QK_ALT_REPEAT_KEY,
-                                                    NAV_SPC,  SPC_TAB,  XXX,
+                                                    NAV_SPC,  NM2_TAB,  XXX,
 
-        DF(U_GAM),KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     XXX,
+        DF(U_GAM),KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_SYRQ,
         XXX,      KC_J,     KC_L,     KC_U,     KC_Y,     KC_SCLN,  KC_BSPC,
         XXX,      KC_M,     HRM_N,    HRM_E,    HRM_I,    HRM_O,    KC_ENT,
                   KC_K,     KC_H,     KC_COMM,  KC_DOT,   KC_UNDS,  KC_RSFT,
-                  NUM_DEL,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,
+                            NUM_DEL,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,
         QK_REPEAT_KEY, 
         XXX,      FUN_ENT,  SYM_BSP),
 
     [U_NUM] = LAYOUT_LR(
-            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
+            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      QK_LLCK,
             XXX,      XXX,      KC_9,     KC_8,     KC_7,     XXX,      XXX,
             XXX,      KC_0,     KC_3,     KC_2,     KC_1,     S(KC_G),  XXX,
             XXX,      XXX,      KC_6,     KC_5,     KC_4,     XXX,
-            XXX,      XXX,      XXX,      XXX,      KC_ESC,
+            XXX,      XXX,      XXX,      XXX,      ___,
                                                                         ___,
-                                                    KC_SPC,   KC_TAB,   XXX,
+                                                    ___,      ___,      XXX,
 
         XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
         XXX,      XXX,      KC_PLUS,  KC_MINUS, XXX,      XXX,      XXX,
         QK_LLCK,  KC_EQL,   KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  XXX,
                   XXX,      KC_SLSH,  KC_ASTR,  XXX,      XXX,      XXX,
-                            XXX,      XXX,      XXX,      XXX,      XXX,
-        XXX,
-        XXX,      XXX,      XXX),
+                            ___,      XXX,      XXX,      XXX,      XXX,
+        ___,
+        ___,      ___,      ___),
+
+    [U_NM2] = LAYOUT_LR(
+            QK_BOOT,  XXX,      XXX,      XXX,      XXX,      XXX,      QK_LLCK,
+            QK_BOOT,  XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
+            XXX,      KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  XXX,      QK_LLCK,
+            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
+            XXX,      XXX,      XXX,      XXX,      ___,
+                                                                        ___,
+                                                    ___,      ___,      XXX,
+
+        XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      QK_REBOOT,
+        XXX,      XXX,      KC_7,     KC_8,     KC_9,     XXX,      XXX,
+        XXX,      S(KC_G),  KC_1,     KC_2,     KC_3,     KC_0,     XXX,
+                  XXX,      KC_4,     KC_5,     KC_6,     ___,      XXX,
+                            ___,      XXX,      XXX,      XXX,      XXX,
+        ___,
+        ___,      ___,      ___),
 
     [U_SYM] = LAYOUT_LR(
-            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
+            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      QK_LLCK,
             XXX,      KC_QUOT,  KC_LPRN,  KC_RPRN,  KC_SCLN,  KC_PERC,  XXX,
             XXX,      KC_EXLM,  KC_EQL,   KC_SLSH,  KC_PLUS,  KC_HASH,  XXX,
             XXX,      KC_CIRC,  KC_LCBR,  KC_RCBR,  KC_DLR,   XXX,
@@ -132,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXX,      XXX,      XXX),
 
     [U_FUN] = LAYOUT_LR(
-            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
+            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      QK_LLCK,
             XXX,      KC_F10,   KC_F9,    KC_F8,    KC_F7,    XXX,      XXX,
             XXX,      KC_F11,   KC_F3,    KC_F2,    KC_F1,    XXX,      XXX,
             XXX,      KC_F12,   KC_F6,    KC_F5,    KC_F4,    XXX,
@@ -140,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                         ___,
                                                     KC_SPC,   KC_TAB,   XXX,
 
-        XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
+        XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      QK_BOOT,
         XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
         QK_LLCK,  XXX,      KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  XXX,
                   XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
@@ -149,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXX,      XXX,      XXX),
 
     [U_NAV] = LAYOUT_LR(
-            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
+            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      QK_LLCK,
             XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
             XXX,      KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  XXX,      QK_LLCK,
             XXX,      EU_ADIA,  EU_ODIA,  EU_UDIA,  EU_SS,    XXX,
@@ -158,15 +175,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     XXX,      XXX,      XXX,
 
         XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
-        XXX,      KC_PGUP,  XXX,      VIM_SAVE, VIM_TABF, XXX,      XXX,
+        XXX,      KC_PGUP,  VRELOAD,  VSAVE,    VTABF,    XXX,      XXX,
         XXX,      KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  XXX,
-                  VIM_SPLITNEXT,KC_HOME,VIM_TABL,VIM_TABR,KC_END,   XXX,
+                  VSPLITNEXT,KC_HOME, VTABL,    VTABR,    KC_END,   XXX,
                             KC_DEL,   XXX,      XXX,      XXX,      XXX,
         XXX,
         XXX,      KC_ENT,   KC_BSPC),
 
     [U_BUTTON] = LAYOUT_LR(
-            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
+            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      QK_LLCK,
             A(KC_TAB),C(KC_A),  C(KC_W),  A(KC_TAB),C(KC_T),  XXX,      XXX,
             XXX,      WSP_L,    TAB_L,    TAB_R,    WSP_R,    KC_ENT,   XXX,
             XXX,      C(KC_Z),  C(KC_X),  C(KC_C),  XXX,      C(KC_V),
@@ -175,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     XXX,      XXX,      XXX,
 
         XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
-        XXX,      XXX,      XXX,      XXX,      XXX,      KC_SYRQ,  XXX,
+        XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      ENC_CLR,
         XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
                   XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
                             KC_DEL,   XXX,      XXX,      XXX,      XXX,
@@ -216,28 +233,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___,
         ___,      ___,      ___),
 };
+
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT_LR(
+            'L', 'L', 'L', 'L', 'L', 'L', 'L',
+            'L', 'L', 'L', 'L', 'L', 'L', 'L',
+            'L', 'L', 'L', 'L', 'L', 'L', 'L',
+            'L', 'L', 'L', 'L', 'L', 'L',
+            'L', 'L', 'L', 'L', 'L',
+                                          '*',
+                                '*', '*', '*',
+        'R', 'R', 'R', 'R', 'R', 'R', 'R',
+        'R', 'R', 'R', 'R', 'R', 'R', 'R',
+        'R', 'R', 'R', 'R', 'R', 'R', 'R',
+             'R', 'R', 'R', 'R', 'R', 'R',
+                  'R', 'R', 'R', 'R', 'R',
+        '*',
+        '*', '*', '*');
 // clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (record->event.pressed) {
     switch (keycode) {
-      case VIM_SPLITNEXT:
+      case VSPLITNEXT:
         SEND_STRING(SS_LCTL("w") SS_LCTL("w"));
         return false;
-      case VIM_TABL:
+      case VTABL:
         SEND_STRING("gT");
         return false;
-      case VIM_TABR:
+      case VTABR:
         SEND_STRING("gt");
         return false;
-      case VIM_TABF:
+      case VTABF:
         SEND_STRING(":tabf ");
         return false;
-      case VIM_SAVE:
+      case VSAVE:
         SEND_STRING(":w" SS_TAP(X_ENT));
+        return false;
+      case VRELOAD:
+        SEND_STRING(":e" SS_TAP(X_ENT));
+        return false;
+      case ENC_CLR:
+        encoder_clear_state();
         return false;
     }
   }
+
   return true;
 }
 
@@ -245,7 +286,7 @@ const custom_shift_key_t custom_shift_keys[] = {
     {KC_UNDS, KC_MINUS},
 };
 
-const uint16_t PROGMEM combo_caps_word[] = {BTN_ESC, NUM_DEL, COMBO_END};
+const uint16_t PROGMEM combo_caps_word[] = {HRM_A, HRM_O, COMBO_END};
 combo_t                key_combos[]      = {
     COMBO(combo_caps_word, QK_CAPS_WORD_TOGGLE),
 };
@@ -256,7 +297,7 @@ bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
   switch (tap_hold_keycode) {
     case BTN_ESC:
     case NAV_SPC:
-    case SPC_TAB:
+    case NM2_TAB:
     case NUM_DEL:
     case SYM_BSP:
     case FUN_ENT:
@@ -326,10 +367,10 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
       return C(KC_RPRN);
     case KC_RPRN:
       return C(KC_RPRN);
-    case VIM_TABL:
-      return VIM_TABR;
-    case VIM_TABR:
-      return VIM_TABL;
+    case VTABL:
+      return VTABR;
+    case VTABR:
+      return VTABL;
   }
 
   return KC_TRNS; // Defer to default definitions.
@@ -337,12 +378,26 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
   switch (keycode) {
+    // Shorter tapping term for index fingers / shift.
     case HRM_T:
     case HRM_N:
-      // Shorter tapping term for index fingers / shift.
+    // .. and space.
+    case NAV_SPC:
       return TAPPING_TERM - 75;
     default:
       return TAPPING_TERM;
+  }
+}
+
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    // Disable quick tap on shift, otherwise it would interfere with any
+    // "t<right hand caps>" sequence, likewise for "n<left hand caps>".
+    case HRM_T:
+    case HRM_N:
+      return 0;
+    default:
+      return QUICK_TAP_TERM;
   }
 }
 
@@ -351,20 +406,66 @@ bool is_flow_tap_key(uint16_t keycode) {
     return false; // Disable Flow Tap on hotkeys.
   }
   switch (keycode) {
-    // Disable for the Shift homerow mods since those are part of standard
-    // typing, and on the strong and fast fingers.
+    // Turn off for these since they're used often as part of standard typing
+    // flow.
+    case HRM_S:
     case HRM_T:
     case HRM_N:
+    case HRM_E:
       return false;
   }
   switch (get_tap_keycode(keycode)) {
-    // case KC_SPC:
     case KC_A ... KC_Z:
     case KC_DOT:
     case KC_COMM:
     case KC_SCLN:
     case KC_UNDS:
+    // Let's try this one disabled again:
+    // case KC_SPC: // Note this is a mod-tap key.
       return true;
   }
   return false;
+}
+
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
+                           uint16_t prev_keycode) {
+  if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+    switch (keycode) {
+      // Short timeout for some homerow mods since those are part of
+      // standard typing, and on the strong and fast fingers.
+      case HRM_S:
+      case HRM_T:
+      case HRM_N:
+      case HRM_E:
+        return FLOW_TAP_TERM - 100;
+
+      default:
+        return FLOW_TAP_TERM; // Longer timeout otherwise.
+    }
+  }
+  return 0; // Disable Flow Tap.
+}
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t* record) {
+  switch (keycode) {
+    case BTN_ESC:
+    // Disabled, too many mispresses as part of normal typing:
+    // case NAV_SPC:
+    case NM2_TAB:
+    case NUM_DEL:
+    case SYM_BSP:
+    case FUN_ENT:
+      return true;
+    default:
+      return false;
+  }
+}
+
+bool get_permissive_hold(uint16_t keycode, keyrecord_t* record) {
+  return !get_hold_on_other_key_press(keycode, record);
+}
+
+void housekeeping_task_user(void) {
+  // For LAYER_LOCK_IDLE_TIMEOUT.
+  layer_lock_task();
 }
