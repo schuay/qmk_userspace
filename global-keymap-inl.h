@@ -7,10 +7,8 @@ enum layers {
   BASE,
   U_GAM,
   U_GAM_FUN,
-  U_NUM,
   U_NM2,
   U_NAV,
-  U_MOUSE,
   U_SYM,
   U_FUN,
   U_BUTTON,
@@ -29,7 +27,8 @@ enum custom_keycodes {
   BTN_ESC = LT(U_BUTTON, KC_ESC),
   NAV_SPC = LT(U_NAV, KC_SPC),
   NM2_TAB = LT(U_NM2, KC_TAB),
-  NUM_DEL = LT(U_NUM, KC_DEL),
+  // Layer unused:
+  NUM_DEL = KC_DEL,
   FUN_ENT = LT(U_FUN, KC_ENT),
   SYM_BSP = LT(U_SYM, KC_BSPC),
   WSP_L   = G(KC_PGUP),
@@ -42,9 +41,6 @@ enum custom_keycodes {
   VTABF,
   VSAVE,
   VRELOAD,
-  RENC_CCW, // right encoder, counter clockwise.
-  RENC_CW,  // right encoder, clockwise.
-  ENC_CLR,  // clear encoder state.
 };
 
 // clang-format off
@@ -97,28 +93,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_REPEAT_KEY, 
         XXX,      FUN_ENT,  SYM_BSP),
 
-    [U_NUM] = LAYOUT_LR(
-            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      QK_LLCK,
-            XXX,      XXX,      KC_9,     KC_8,     KC_7,     XXX,      XXX,
-            XXX,      KC_0,     KC_3,     KC_2,     KC_1,     S(KC_G),  XXX,
-            XXX,      XXX,      KC_6,     KC_5,     KC_4,     XXX,
-            XXX,      XXX,      XXX,      XXX,      ___,
-                                                                        ___,
-                                                    ___,      ___,      XXX,
-
-        XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
-        XXX,      XXX,      KC_PLUS,  KC_MINUS, XXX,      XXX,      XXX,
-        QK_LLCK,  KC_EQL,   KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  XXX,
-                  XXX,      KC_SLSH,  KC_ASTR,  XXX,      XXX,      XXX,
-                            ___,      XXX,      XXX,      XXX,      XXX,
-        ___,
-        ___,      ___,      ___),
-
     [U_NM2] = LAYOUT_LR(
             QK_BOOT,  XXX,      XXX,      XXX,      XXX,      XXX,      QK_LLCK,
-            QK_BOOT,  XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
+            QK_BOOT,  QK_BOOT,  XXX,      XXX,      XXX,      XXX,      XXX,
             XXX,      KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  XXX,      QK_LLCK,
-            XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
+            XXX,      QK_RBT,   XXX,      XXX,      XXX,      XXX,
             XXX,      XXX,      XXX,      XXX,      ___,
                                                                         ___,
                                                     ___,      ___,      XXX,
@@ -192,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     XXX,      XXX,      XXX,
 
         XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
-        XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      ENC_CLR,
+        XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
         XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
                   XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
                             KC_DEL,   XXX,      XXX,      XXX,      XXX,
@@ -272,9 +251,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         return false;
       case VRELOAD:
         SEND_STRING(":e" SS_TAP(X_ENT));
-        return false;
-      case ENC_CLR:
-        encoder_clear_state();
         return false;
     }
   }

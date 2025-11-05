@@ -20,14 +20,14 @@
         kb3,                                                   \
         kb4, kb5, kb6)                                         \
   LAYOUT(                                                      \
-        k10, k11, k12, k13, k14, k15,                          \
-        k71, k72, k73, k74, k75, k76,                          \
+        k11, k12, k13, k14, k15,                               \
+        k71, k72, k73, k74, k75,                               \
                                                                \
-        k30, k21, k22, k23, k24, k25,                          \
-        k81, k82, k83, k84, k85, k96,                          \
+        k21, k22, k23, k24, k25,                               \
+        k81, k82, k83, k84, k85,                               \
                                                                \
-        k20, k31, k32, k33, k34, k35,                          \
-        k91, k92, k93, k94, k95, k96,                          \
+        k31, k32, k33, k34, k35,                               \
+        k91, k92, k93, k94, k95,                               \
                                                                \
         k06, k44, k50, k51,                                    \
         kb5, kb6, ka2, k06)
@@ -49,11 +49,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
                   ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)},
     [U_FUN]    = {ENCODER_CCW_CW(KC_PGUP, KC_PGDN),
                   ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)},
-    [U_NUM]    = {ENCODER_CCW_CW(KC_PGUP, KC_PGDN),
-                  ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)},
-    [1] = {ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)},
-    [2] = {ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)},
-    [8] = {ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)},
+    [U_GAM] = {ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)},
+    [U_GAM_FUN] = {ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)},
 };
 #endif
 
