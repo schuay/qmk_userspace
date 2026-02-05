@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     XXX,      XXX,      XXX,
 
         XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
-        XXX,      KC_PGUP,  VRELOAD,  VSAVE,    VTABF,    XXX,      XXX,
+        XXX,      KC_PGUP,  VRELOAD,  VSAVE,    VTABF,    KC_INS,   XXX,
         XXX,      KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  XXX,
                   VSPLITNEXT,KC_HOME, VTABL,    VTABR,    KC_END,   XXX,
                             KC_DEL,   XXX,      XXX,      XXX,      XXX,
