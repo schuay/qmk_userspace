@@ -24,7 +24,6 @@ enum custom_keycodes {
   HRM_E   = LCTL_T(KC_E),
   HRM_I   = LALT_T(KC_I),
   HRM_O   = LGUI_T(KC_O),
-  SYSRQ   = LALT_T(KC_PRINT_SCREEN),
   BTN_ESC = LT(U_BUTTON, KC_ESC),
   NAV_SPC = LT(U_NAV, KC_SPC),
   NM2_TAB = LT(U_NM2, KC_TAB),
@@ -96,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [U_NM2] = LAYOUT_LR(
             QK_BOOT,  XXX,      XXX,      XXX,      XXX,      XXX,      QK_LLCK,
-            QK_BOOT,  QK_BOOT,  SYSRQ,    XXX,      XXX,      XXX,      XXX,
+            QK_BOOT,  QK_BOOT,  KC_SYRQ,  XXX,      XXX,      XXX,      XXX,
             XXX,      KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  XXX,      QK_LLCK,
             XXX,      QK_RBT,   XXX,      XXX,      XXX,      XXX,
             XXX,      XXX,      XXX,      XXX,      ___,
@@ -138,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_SPC,   KC_TAB,   XXX,
 
         XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      QK_BOOT,
-        XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
+        XXX,      XXX,      XXX,      XXX,      XXX,      QK_BOOT,  XXX,
         QK_LLCK,  XXX,      KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  XXX,
                   XXX,      XXX,      XXX,      XXX,      XXX,      XXX,
                             XXX,      XXX,      XXX,      XXX,      XXX,
