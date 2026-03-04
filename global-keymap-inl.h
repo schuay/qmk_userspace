@@ -41,6 +41,7 @@ enum custom_keycodes {
   VTABF,
   VSAVE,
   VRELOAD,
+  SYSRQ,
 };
 
 // clang-format off
@@ -95,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [U_NM2] = LAYOUT_LR(
             QK_BOOT,  XXX,      XXX,      XXX,      XXX,      XXX,      QK_LLCK,
-            QK_BOOT,  QK_BOOT,  KC_SYRQ,  XXX,      XXX,      XXX,      XXX,
+            QK_BOOT,  QK_BOOT,  SYSRQ,    XXX,      XXX,      XXX,      XXX,
             XXX,      KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  XXX,      QK_LLCK,
             XXX,      QK_RBT,   XXX,      XXX,      XXX,      XXX,
             XXX,      XXX,      XXX,      XXX,      ___,
@@ -251,6 +252,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         return false;
       case VRELOAD:
         SEND_STRING(":e" SS_TAP(X_ENT));
+        return false;
+      case SYSRQ:
+        if (record->event.pressed) {
+          register_code(KC_LALT);
+          register_code(KC_PSCR);
+        } else {
+          unregister_code(KC_PSCR);
+          unregister_code(KC_LALT);
+        }
         return false;
     }
   }
