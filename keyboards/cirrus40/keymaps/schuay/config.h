@@ -5,6 +5,21 @@
 
 #define ENCODER_MAP_KEY_DELAY 0
 
+// MOUSE_EXTENDED_REPORT widens X/Y to int16 so the daemon can forward
+// fast cursor motion without clipping. KEYBOARD_SHARED_EP and
+// MOUSE_SHARED_EP (put both reports on a single USB IN endpoint, so a
+// modifier report queued by tap_hold_force_hold() and the click report
+// that follows it traverse the wire in firmware-queue order) are set via
+// rules.mk -- they are build-system flags, not C-level defines.
+#define MOUSE_EXTENDED_REPORT
+
+// Defer the click report by this many ms after tap_hold_force_hold()
+// actually settled a pending tap-hold. Gives the modifier report time to
+// leave the device on the next USB SOF and reach the compositor in a
+// distinct libinput_dispatch() cycle, so the click that follows sees the
+// modifier in state. See ~/src/kbase/40-qmk-mouse-as-input/.
+#define MOUSE_CLICK_AFTER_SETTLE_MS 2
+
 // Long timeout for slow wake sequences.
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 5000

@@ -232,6 +232,36 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
         '*', '*', '*');
 // clang-format on
 
+#ifdef MOUSE_MAP_ENABLE
+/* Mouse-map definitions. One row per layer (parity with `keymaps`); the
+ * STATIC_ASSERT in keymap_introspection.c enforces it. BASE passes
+ * mouse buttons through to standard HID mouse buttons. Every other layer
+ * is fully transparent (KC_TRNS), so the BASE mapping wins via the
+ * layer-stack lookup. */
+const uint16_t PROGMEM mouse_buttonmap[][MOUSE_BUTTON_COUNT] = {
+    [BASE]      = {MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, MS_BTN6, MS_BTN7, MS_BTN8},
+    [U_GAM]     = {___, ___, ___, ___, ___, ___, ___, ___},
+    [U_GAM_FUN] = {___, ___, ___, ___, ___, ___, ___, ___},
+    [U_NM2]     = {___, ___, ___, ___, ___, ___, ___, ___},
+    [U_NAV]     = {___, ___, ___, ___, ___, ___, ___, ___},
+    [U_SYM]     = {___, ___, ___, ___, ___, ___, ___, ___},
+    [U_FUN]     = {___, ___, ___, ___, ___, ___, ___, ___},
+    [U_BUTTON]  = {___, ___, ___, ___, ___, ___, ___, ___},
+};
+
+const uint16_t PROGMEM mouse_wheelmap[][NUM_MOUSE_WHEEL_DIRECTIONS] = {
+    //                up        down     left      right
+    [BASE]      = {MS_WHLU, MS_WHLD, MS_WHLL, MS_WHLR},
+    [U_GAM]     = {___, ___, ___, ___},
+    [U_GAM_FUN] = {___, ___, ___, ___},
+    [U_NM2]     = {___, ___, ___, ___},
+    [U_NAV]     = {___, ___, ___, ___},
+    [U_SYM]     = {___, ___, ___, ___},
+    [U_FUN]     = {___, ___, ___, ___},
+    [U_BUTTON]  = {___, ___, ___, ___},
+};
+#endif
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (record->event.pressed) {
     switch (keycode) {
