@@ -65,3 +65,21 @@ void keyboard_post_init_user(void) {
     dprintf("post_init_user\n");
   }
 }
+
+// Raw HID protocol with the host-side mouse bridge daemon. See
+// keyboards/cirrus40/tools/qmk-mouse-bridge/README.md for the daemon and
+// protocol contract.
+enum {
+  CIRRUS_HID_MSG_MOUSE_BUTTON_DOWN = 0x01,
+};
+
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+  if (length < 1) {
+    return;
+  }
+  switch (data[0]) {
+    case CIRRUS_HID_MSG_MOUSE_BUTTON_DOWN:
+      tap_hold_force_hold();
+      break;
+  }
+}
