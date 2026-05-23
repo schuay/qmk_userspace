@@ -239,26 +239,27 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
  * is fully transparent (KC_TRNS), so the BASE mapping wins via the
  * layer-stack lookup. */
 const uint16_t PROGMEM mouse_buttonmap[][MOUSE_BUTTON_COUNT] = {
-    [BASE]      = {MS_BTN1, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5, MS_BTN6, MS_BTN7, MS_BTN8},
+    //                LMB         RMB         MMB         side1       side2
+    [BASE]      = {MS_BTN1,    MS_BTN2,    MS_BTN3,    MS_BTN4,    MS_BTN5, MS_BTN6, MS_BTN7, MS_BTN8},
     [U_GAM]     = {___, ___, ___, ___, ___, ___, ___, ___},
     [U_GAM_FUN] = {___, ___, ___, ___, ___, ___, ___, ___},
     [U_NM2]     = {___, ___, ___, ___, ___, ___, ___, ___},
     [U_NAV]     = {___, ___, ___, ___, ___, ___, ___, ___},
     [U_SYM]     = {___, ___, ___, ___, ___, ___, ___, ___},
     [U_FUN]     = {___, ___, ___, ___, ___, ___, ___, ___},
-    [U_BUTTON]  = {___, ___, ___, ___, ___, ___, ___, ___},
+    [U_BUTTON]  = {C(KC_V),    C(KC_X),    C(KC_C),    ___,        ___,     ___,     ___,     ___},
 };
 
 const uint16_t PROGMEM mouse_wheelmap[][NUM_MOUSE_WHEEL_DIRECTIONS] = {
-    //                up        down     left      right
-    [BASE]      = {MS_WHLU, MS_WHLD, MS_WHLL, MS_WHLR},
+    //                up        down       left      right
+    [BASE]      = {MS_WHLU,    MS_WHLD,   MS_WHLL,  MS_WHLR},
     [U_GAM]     = {___, ___, ___, ___},
     [U_GAM_FUN] = {___, ___, ___, ___},
-    [U_NM2]     = {___, ___, ___, ___},
-    [U_NAV]     = {___, ___, ___, ___},
+    [U_NM2]     = {KC_PGUP,    KC_PGDN,   ___,      ___},
+    [U_NAV]     = {KC_BSPC,    KC_DEL,    ___,      ___},
     [U_SYM]     = {___, ___, ___, ___},
     [U_FUN]     = {___, ___, ___, ___},
-    [U_BUTTON]  = {___, ___, ___, ___},
+    [U_BUTTON]  = {KC_LEFT,    KC_RIGHT,  ___,      ___},
 };
 #endif
 

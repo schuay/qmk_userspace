@@ -99,6 +99,40 @@ typedef struct {
 
 static cirrus_button_state_t cirrus_button_state[MOUSE_BUTTON_COUNT];
 
+// Tracks what the host's USB mouse interface currently sees as held.
+// Stamped into motion reports we emit ourselves, so click-and-drag
+// survives motion events between button-down and button-up (USB HID
+// mouse reports carry the full state on every transfer, so a motion
+// report with buttons=0 would silently release any held button).
+//
+// Sourced from the dispatch result rather than the daemon's input,
+// because the two diverge whenever the mouse_buttonmap maps a button
+// to anything other than MS_BTN* on the active layer. process_record_kb
+// below intercepts MS_BTN* events after dispatch and updates this mask;
+// non-MS_BTN dispatches do not touch it.
+static uint8_t cirrus_host_button_mask = 0;
+
+// process_record_kb fires for every event reaching the action pipeline,
+// including the synthetic MOUSE_BUTTON_EVENTs dispatched from
+// raw_hid_receive through the keymap. By updating the mask here we
+// capture exactly what the host sees on its mouse HID interface,
+// regardless of how the daemon's button id mapped through
+// mouse_buttonmap.
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  if (!process_record_user(keycode, record)) {
+    return false;
+  }
+  if (keycode >= QK_MOUSE_BUTTON_1 && keycode <= QK_MOUSE_BUTTON_8) {
+    uint8_t bit = (uint8_t)(1u << (keycode - QK_MOUSE_BUTTON_1));
+    if (record->event.pressed) {
+      cirrus_host_button_mask |= bit;
+    } else {
+      cirrus_host_button_mask &= (uint8_t)~bit;
+    }
+  }
+  return true;
+}
+
 static uint32_t cirrus_dispatch_deferred_button(uint32_t trigger_time, void *cb_arg) {
   uint8_t btn = (uint8_t)(uintptr_t)cb_arg;
   if (btn >= MOUSE_BUTTON_COUNT) {
@@ -166,9 +200,14 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
       }
       int16_t dx = (int16_t)(((uint16_t)data[1] << 8) | data[2]);
       int16_t dy = (int16_t)(((uint16_t)data[3] << 8) | data[4]);
+      // Preserve held buttons (cirrus_host_button_mask); a motion report
+      // with buttons=0 would silently break click-and-drag (the host reads
+      // the full state out of every report). v/h stay zero -- wheel
+      // deltas are non-persistent.
       report_mouse_t r = {0};
       r.x              = dx;
       r.y              = dy;
+      r.buttons        = cirrus_host_button_mask;
       host_mouse_send(&r);
       break;
     }
