@@ -165,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [U_BUTTON] = LAYOUT_LR(
             XXX,      XXX,      XXX,      XXX,      XXX,      XXX,      QK_LLCK,
             A(KC_TAB),C(KC_A),  C(KC_W),  A(KC_TAB),C(KC_T),  XXX,      XXX,
-            XXX,      WSP_L,    TAB_L,    TAB_R,    WSP_R,    KC_ENT,   XXX,
+            XXX,      KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_ENT,   XXX,
             XXX,      C(KC_Z),  C(KC_X),  C(KC_C),  XXX,      C(KC_V),
             XXX,      XXX,      XXX,      XXX,      XXX,
                                                                         XXX,
