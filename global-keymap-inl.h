@@ -234,13 +234,12 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 
 #ifdef MOUSE_MAP_ENABLE
 /* Mouse-map definitions. One row per layer (parity with `keymaps`); the
- * STATIC_ASSERT in keymap_introspection.c enforces it. BASE passes
- * mouse buttons through to standard HID mouse buttons. Every other layer
+ * STATIC_ASSERT in keymap_introspection.c enforces it. BASE uses the
+ * standard identity passthrough via DEFAULT_MOUSE_*MAP. Every other layer
  * is fully transparent (KC_TRNS), so the BASE mapping wins via the
  * layer-stack lookup. */
 const uint16_t PROGMEM mouse_buttonmap[][MOUSE_BUTTON_COUNT] = {
-    //                LMB         RMB         MMB         side1       side2
-    [BASE]      = {MS_BTN1,    MS_BTN2,    MS_BTN3,    MS_BTN4,    MS_BTN5, MS_BTN6, MS_BTN7, MS_BTN8},
+    [BASE]      = DEFAULT_MOUSE_BUTTONMAP,
     [U_GAM]     = {___, ___, ___, ___, ___, ___, ___, ___},
     [U_GAM_FUN] = {___, ___, ___, ___, ___, ___, ___, ___},
     [U_NM2]     = {___, ___, ___, ___, ___, ___, ___, ___},
@@ -252,7 +251,7 @@ const uint16_t PROGMEM mouse_buttonmap[][MOUSE_BUTTON_COUNT] = {
 
 const uint16_t PROGMEM mouse_wheelmap[][NUM_MOUSE_WHEEL_DIRECTIONS] = {
     //                up        down       left      right
-    [BASE]      = {MS_WHLU,    MS_WHLD,   MS_WHLL,  MS_WHLR},
+    [BASE]      = DEFAULT_MOUSE_WHEELMAP,
     [U_GAM]     = {___, ___, ___, ___},
     [U_GAM_FUN] = {___, ___, ___, ___},
     [U_NM2]     = {KC_PGUP,    KC_PGDN,   ___,      ___},
