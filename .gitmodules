@@ -1,3 +1,7 @@
 [submodule "modules/getreuer"]
 	path = modules/getreuer
 	url = https://github.com/getreuer/qmk-modules.git
+[submodule "modules/schuay"]
+	path = modules/schuay
+	url = git@github.com:schuay/qmk_modules.git
+	branch = working
