@@ -239,26 +239,29 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
  * is fully transparent (KC_TRNS), so the BASE mapping wins via the
  * layer-stack lookup. */
 const uint16_t PROGMEM mouse_buttonmap[][MOUSE_BUTTON_COUNT] = {
-    [BASE]      = DEFAULT_MOUSE_BUTTONMAP,
-    [U_GAM]     = {___, ___, ___, ___, ___, ___, ___, ___},
-    [U_GAM_FUN] = {___, ___, ___, ___, ___, ___, ___, ___},
-    [U_NM2]     = {___, ___, ___, ___, ___, ___, ___, ___},
-    [U_NAV]     = {___, ___, ___, ___, ___, ___, ___, ___},
-    [U_SYM]     = {___, ___, ___, ___, ___, ___, ___, ___},
-    [U_FUN]     = {___, ___, ___, ___, ___, ___, ___, ___},
-    [U_BUTTON]  = {C(KC_V),    C(KC_X),    C(KC_C),    ___,        ___,     ___,     ___,     ___},
+    [BASE]      = {MS_BTN1,    MS_BTN2,    MS_BTN3,    LCTL_T(KC_WBAK), LSFT_T(KC_WFWD), MS_BTN6, MS_BTN7, MS_BTN8},
+    //            left         right       middle      side-back   side-fwd 6        7        8
+    [U_BUTTON]  = {C(KC_V),    C(KC_X),    C(KC_C),    KC_ENT,     ___,     ___,     ___,     ___},
+    [U_NAV]     = {C(KC_V),    C(KC_X),    C(KC_C),    KC_ENT,     ___,     ___,     ___,     ___},
+    [U_NM2]     = {C(KC_V),    C(KC_X),    C(KC_C),    KC_ENT,     ___,     ___,     ___,     ___},
+    // Right hand side layers unused for the mouse.
+    [U_GAM]     = DEFAULT_MOUSE_BUTTONMAP,
+    [U_GAM_FUN] = DEFAULT_MOUSE_BUTTONMAP,
+    [U_SYM]     = DEFAULT_MOUSE_BUTTONMAP,
+    [U_FUN]     = DEFAULT_MOUSE_BUTTONMAP,
 };
 
 const uint16_t PROGMEM mouse_wheelmap[][NUM_MOUSE_WHEEL_DIRECTIONS] = {
-    //                up        down       left      right
     [BASE]      = DEFAULT_MOUSE_WHEELMAP,
-    [U_GAM]     = {___, ___, ___, ___},
-    [U_GAM_FUN] = {___, ___, ___, ___},
-    [U_NM2]     = {KC_PGUP,    KC_PGDN,   ___,      ___},
-    [U_NAV]     = {KC_BSPC,    KC_DEL,    ___,      ___},
-    [U_SYM]     = {___, ___, ___, ___},
-    [U_FUN]     = {___, ___, ___, ___},
-    [U_BUTTON]  = {KC_LEFT,    KC_RIGHT,  ___,      ___},
+    //             up          down       left       right
+    [U_BUTTON]  = {KC_LEFT,    KC_RIGHT,  KC_NO,     KC_NO},
+    [U_NAV]     = {KC_BSPC,    KC_DEL,    KC_NO,     KC_NO},
+    [U_NM2]     = {KC_PGUP,    KC_PGDN,   KC_NO,     KC_NO},
+    // Right hand side layers unused for the mouse.
+    [U_GAM]     = DEFAULT_MOUSE_WHEELMAP,
+    [U_GAM_FUN] = DEFAULT_MOUSE_WHEELMAP,
+    [U_SYM]     = DEFAULT_MOUSE_WHEELMAP,
+    [U_FUN]     = DEFAULT_MOUSE_WHEELMAP,
 };
 #endif
 
