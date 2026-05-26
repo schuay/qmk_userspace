@@ -12,7 +12,7 @@ COMBO_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 KEYBOARD_SHARED_EP = yes
-MOUSE_MAP_ENABLE = yes
+# MOUSE_MAP_ENABLE is now defined by the schuay/native_mouse module's rules.mk.
 DEFERRED_EXEC_ENABLE = yes
 
 CONSOLE_ENABLE = yes

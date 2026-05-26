@@ -2,6 +2,13 @@
 
 #include "version.h"
 #include "keymap_eurkey.h"
+// The schuay/native_mouse community module owns the mouse-keypos ABI
+// (MOUSE_BUTTON_COUNT, NUM_MOUSE_WHEEL_DIRECTIONS, DEFAULT_MOUSE_*MAP,
+// ...). Pull its header so the mouse_buttonmap / mouse_wheelmap
+// declarations below resolve.
+#ifdef MOUSE_MAP_ENABLE
+#  include "native_mouse.h"
+#endif
 
 enum layers {
   BASE,
